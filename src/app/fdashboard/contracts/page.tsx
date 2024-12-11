@@ -69,10 +69,10 @@ export default function ContractsPage() {
   return (
     <DashboardLayout>
       <PageBackground imageSrc="/resources/background2.jpeg" />
-      <div className="flex justify-between items-center mb-6">
+      {/* <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">My Contracts</h1>
         <Button>View Contract Offers</Button>
-      </div>
+      </div> */}
 
       {loading ? (
         <div className="flex justify-center items-center">

@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white/90 features-section" id="features">
+      <section className="py-24 bg-white/90 features-section text-black" id="features">
         <div className="container">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
             Key Features
@@ -123,7 +123,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative py-24 bg-gray-50/90 how-it-works-section" id="how-it-works">
+      <section className="relative py-24 bg-gray-50/90 how-it-works-section text-black" id="how-it-works">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
@@ -164,7 +164,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 bg-white/90 contact-section" id="contact">
+      <section className="py-24 text-black bg-white/90 contact-section" id="contact">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
@@ -206,7 +206,7 @@ export default function Home() {
                   <label className="block text-sm font-medium mb-1">Description</label>
                   <Textarea placeholder="Your message" rows={4} />
                 </div>
-                <Button className="w-full">Submit</Button>
+                <Button className="w-full bg-yellow-200">Submit</Button>
               </form>
             </div>
           </div>

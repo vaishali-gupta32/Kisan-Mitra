@@ -72,7 +72,7 @@ export default function Login() {
               </div>
             )}
 
-            <div className="space-y-2">
+            <div className="space-y-2 text-black">
               <label htmlFor="email">Email</label>
               <input
                 id="email"
@@ -84,7 +84,7 @@ export default function Login() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 text-black">
               <label htmlFor="password">Password</label>
               <input
                 id="password"
@@ -95,7 +95,7 @@ export default function Login() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 text-black">
               <label htmlFor="role">Role</label>
               <select
                 id="role"
