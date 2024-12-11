@@ -73,7 +73,7 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <PageBackground imageSrc="/resources/background1.jpeg" />
+      <PageBackground imageSrc="/resources/.jpeg" />
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-3xl font-bold">Welcome, Farmer!</h1>
@@ -186,7 +186,7 @@ export default function DashboardPage() {
 
           <div className="mt-4 text-center">
             <Button variant="outline" asChild>
-              <Link href="/dashboard/listings">View All Listings</Link>
+              <Link href="/fdashboard/listings">View All Listings</Link>
             </Button>
           </div>
         </div>
