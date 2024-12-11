@@ -59,7 +59,7 @@ export default function Header() {
                 <span className="sr-only">Change language</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className='text-black'>
               {languages.map((language, index) => (
                 <DropdownMenuItem key={index}>{language}</DropdownMenuItem>
               ))}

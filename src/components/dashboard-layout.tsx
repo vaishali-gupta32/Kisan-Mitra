@@ -6,7 +6,7 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGrou
 import { Button } from '@/components/ui/button';
 import { MoonIcon, SunIcon, LayoutDashboard, List, FileCodeIcon as FileContract, Cloud, Sprout, Award, Truck } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import Header from '@/components/Header';
+import Header from '@/components/layout/header';  
 import Footer from '@/components/Footer';
 
 const navItems = [

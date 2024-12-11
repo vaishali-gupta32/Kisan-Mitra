@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Sun, Moon, Languages } from 'lucide-react';
+import { Sun, Moon, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,34 +11,32 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const languages = ['English', 'हिन्दी', 'मराठी'];
+const languages = ["English", "हिन्दी", "मराठी"];
 
 export default function Header() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    // Check the saved theme from localStorage or default to 'light'
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.classList.add(savedTheme);
     } else {
-      document.documentElement.classList.add('light');
+      document.documentElement.classList.add("light");
     }
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', newTheme); // Save theme preference
+    document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", newTheme);
   };
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-transparent">
-      <div className="container flex h-16 items-center justify-between">
-        {/* Removed KisanMitra link */}
-        <nav className="flex items-center space-x-6 ml-auto"> {/* Added ml-auto to align to the right */}
+    <header className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-sm">
+      <div className="container flex h-16 items-center justify-between px-4">
+        <nav className="flex items-center space-x-6 ml-auto">
           <Link href="/" className="text-sm font-medium text-white hover:text-primary">
             Home
           </Link>
@@ -67,7 +65,7 @@ export default function Header() {
           </DropdownMenu>
 
           <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-white">
-            {theme === 'light' ? (
+            {theme === "light" ? (
               <Moon className="h-5 w-5" />
             ) : (
               <Sun className="h-5 w-5" />

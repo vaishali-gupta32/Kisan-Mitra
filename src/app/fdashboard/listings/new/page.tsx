@@ -60,7 +60,7 @@ export default function NewListingPage() {
 
   return (
     <DashboardLayout>
-      <PageBackground imageSrc="/new-listing-background.jpg" />
+      <PageBackground imageSrc="/resources/background1.jpeg" />
       <Card>
         <CardHeader>
           <CardTitle>Add New Listing</CardTitle>
@@ -73,14 +73,14 @@ export default function NewListingPage() {
               <Input id="croptype" name="croptype" value={listing.croptype} onChange={handleChange} required />
             </div>
             <div>
-              <label htmlFor="quantity">Quantity</label>
+              <label htmlFor="quantity">Quantity (in kgs)</label>
               <Input id="quantity" name="quantity" value={listing.quantity} onChange={handleChange} required />
             </div>
             <div>
               <label htmlFor="croppingtime">Cropping Time</label>
               <Select onValueChange={(value: string) => handleSelectChange('croppingtime', value)}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select cropping time" />
+                  <SelectValue placeholder="Select cropping time"/>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="January">January</SelectItem>
