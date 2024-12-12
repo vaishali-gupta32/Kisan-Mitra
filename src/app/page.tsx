@@ -254,7 +254,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-[url('/resources/white-screen_32.png')] bg-cover bg-center text-black" id="features">
+      <section className="py-24 bg-[url('/resources/white-screen_32.jpeg')] bg-cover bg-center text-black" id="features">
         <div className="container">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 fancy-text">Key Features</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -312,10 +312,10 @@ export default function Home() {
 
 
       {/* Contact Section */}
-      <section className="py-24 bg-[url('/resources/white-screen_32.png')] bg-cover bg-center text-black" id="contact">
+      <section className="py-24 bg-[url('/resources/white-screen_32.jpeg')] bg-cover bg-center text-black" id="contact">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
+            {/* Contact Info */}  
             <div className="flex flex-col items-center">
               <h2 className="text-4xl font-bold mb-6 fancy-text">Get in Touch</h2>
               <div className="space-y-4 text-center">

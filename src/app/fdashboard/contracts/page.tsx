@@ -9,7 +9,7 @@ import { PageBackground } from '@/components/PageBackground';
 // Define the type for contract data according to the API response
 interface Contract {
   _id: string; // Unique identifier
-  cropName: string;
+  croptype: string;
   price: number;
   quantity: number;
   status: string;
@@ -102,7 +102,7 @@ export default function ContractsPage() {
             {contracts.map((contract) => (
               <TableRow key={contract._id}>
                 <TableCell>{contract.bemail}</TableCell>
-                <TableCell>{contract.cropName}</TableCell>
+                <TableCell>{contract.croptype}</TableCell>
                 <TableCell>{contract.quantity}</TableCell>
                 <TableCell>{contract.price}</TableCell>
                 <TableCell>{contract.status}</TableCell>

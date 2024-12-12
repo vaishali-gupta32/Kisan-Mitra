@@ -15,9 +15,9 @@ export default function Interests() {
   const fetchInterests = async () => {
     // In a real application, this would be an API call
     const mockInterests: Interest[] = [
-      { id: 1, listingId: 1, cropName: 'Wheat', status: 'pending' },
-      { id: 2, listingId: 2, cropName: 'Rice', status: 'accepted' },
-      { id: 3, listingId: 3, cropName: 'Corn', status: 'rejected' },
+      { id: 1, listingId: 1, croptype: 'Wheat', status: 'pending' },
+      { id: 2, listingId: 2, croptype: 'Rice', status: 'accepted' },
+      { id: 3, listingId: 3, croptype: 'Corn', status: 'rejected' },
     ]
     setInterests(mockInterests)
   }
@@ -79,7 +79,7 @@ export default function Interests() {
               {interests.map((interest) => (
                 <tr key={interest.id}>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-black">
-                    {interest.cropName}
+                    {interest.croptype}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-black">
                     {interest.status}

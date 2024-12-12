@@ -3,8 +3,8 @@ import { Contract } from '../types'
 async function getContracts(): Promise<Contract[]> {
   // In a real application, this would be an API call
   return [
-    { id: 1, listingId: 1, cropName: 'Wheat', quantity: 1000, unit: 'kg', price: 500, status: 'pending' },
-    { id: 2, listingId: 2, cropName: 'Rice', quantity: 2000, unit: 'kg', price: 750, status: 'finalized' },
+    { id: 1, listingId: 1, croptype: 'Wheat', quantity: 1000, unit: 'kg', price: 500, status: 'pending' },
+    { id: 2, listingId: 2, croptype: 'Rice', quantity: 2000, unit: 'kg', price: 750, status: 'finalized' },
   ]
 }
 
@@ -40,7 +40,7 @@ export default async function Contracts() {
               {contracts.map((contract) => (
                 <tr key={contract.id}>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-black">
-                    {contract.cropName}
+                    {contract.croptype}
                   </td>
                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-black">
                     {contract.quantity} {contract.unit}

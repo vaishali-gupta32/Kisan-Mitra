@@ -90,7 +90,7 @@ export default function Register() {
               )}
 
               <div className="space-y-2">
-                <label htmlFor="fullName" className="text-sm font-medium">
+                <label htmlFor="fullName" className="text-sm text-black font-medium">
                   Full Name
                 </label>
                 <input
@@ -104,7 +104,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
+                <label htmlFor="email" className="text-sm text-black font-medium">
                   Email
                 </label>
                 <input
@@ -118,7 +118,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium">
+                <label htmlFor="phone" className="text-sm text-black font-medium">
                   Phone
                 </label>
                 <input
@@ -132,7 +132,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="aadhar" className="text-sm font-medium">
+                <label htmlFor="aadhar" className="text-sm text-black font-medium">
                   Aadhar Number
                 </label>
                 <input
@@ -146,7 +146,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="role" className="text-sm font-medium">
+                <label htmlFor="role" className="text-sm text-black font-medium">
                   Role
                 </label>
                 <input
@@ -161,7 +161,7 @@ export default function Register() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="city" className="text-sm font-medium">
+                  <label htmlFor="city" className="text-sm text-black font-medium">
                     City
                   </label>
                   <input
@@ -175,7 +175,7 @@ export default function Register() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="state" className="text-sm font-medium">
+                  <label htmlFor="state" className="text-sm text-black font-medium">
                     State
                   </label>
                   <select
@@ -195,7 +195,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="pincode" className="text-sm font-medium">
+                <label htmlFor="pincode" className="text-sm text-black font-medium">
                   Pincode
                 </label>
                 <input
@@ -209,7 +209,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium">
+                <label htmlFor="password" className="text-sm text-black font-medium">
                   Password
                 </label>
                 <input
@@ -223,7 +223,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="text-sm font-medium">
+                <label htmlFor="confirmPassword" className="text-sm text-black font-medium">
                   Confirm Password
                 </label>
                 <input

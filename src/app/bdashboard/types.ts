@@ -1,6 +1,6 @@
 export interface CropListing {
     id: number
-    cropName: string
+    croptype: string
     quantity: number
     unit: string
     price: number
@@ -12,14 +12,14 @@ export interface CropListing {
 export interface Interest {
   id: number
   listingId: number
-  cropName: string
+  croptype: string
   status: 'pending' | 'accepted' | 'rejected'
 }
 
 export interface Contract {
   id: number
   listingId: number
-  cropName: string
+  croptype: string
   quantity: number
   unit: string
   price: number

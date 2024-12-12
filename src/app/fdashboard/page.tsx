@@ -11,11 +11,7 @@ import { PageBackground } from '@/components/PageBackground'
 
 console.log("Hii");
 
-const weatherAlert = {
-  type: 'Heavy Rainfall',
-  description: 'Expected heavy rainfall in your area over the next 48 hours.',
-  advice: 'Consider protecting sensitive crops and ensuring proper drainage.',
-}
+
 
 export default function DashboardPage() {
   const [listings, setListings] = useState<any[]>([]) // Ensure listings is always an array
@@ -78,25 +74,11 @@ export default function DashboardPage() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-3xl font-bold">Welcome, Farmer!</h1>
           <Button asChild>
-            <Link href="/fdashboard/listings/new">Create New Listing</Link>
+            <Link href="/fdashboard/listing/new">Create New Listing</Link>
           </Button>
         </div>
 
-        {weatherAlert && (
-          <Card className="bg-yellow-100 dark:bg-yellow-900">
-            <CardHeader className="flex flex-row items-center space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium flex items-center">
-                <Cloud className="mr-2 h-4 w-4" />
-                Weather Alert
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="font-semibold">{weatherAlert.type}</p>
-              <p className="text-sm mt-1">{weatherAlert.description}</p>
-              <p className="text-sm mt-1 font-medium">{weatherAlert.advice}</p>
-            </CardContent>
-          </Card>
-        )}
+       
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
@@ -186,7 +168,7 @@ export default function DashboardPage() {
 
           <div className="mt-4 text-center">
             <Button variant="outline" asChild>
-              <Link href="/fdashboard/listings">View All Listings</Link>
+              <Link href="/fdashboard/listing">View All Listings</Link>
             </Button>
           </div>
         </div>
