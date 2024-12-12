@@ -92,113 +92,79 @@ export default function FarmerDashboard() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Farmer's Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-4 text-white">My Listing</h1>
       {listings.length === 0 ? (
         <div>No listings available</div>
       ) : (
         listings.map(listing => (
-          <Card key={listing._id} className="mb-6">
+          <Card key={listing._id} className="mb-6 bg-white text-black shadow-[0_4px_8px_rgba(0,0,0,0.1)]">
             <CardHeader>
-              <CardTitle>{listing.croptype}</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-black">{listing.croptype}</CardTitle>
+              <CardDescription className="text-black">
                 Quantity: {listing.quantity} | Price: ₹{listing.price}/unit
               </CardDescription>
             </CardHeader>
-            <CardContent>
-  <p>Cropping Time: {listing.croppingtime}</p>
-  <p>Harvesting Time: {listing.harvestingtime}</p>
-  <p>Location: {listing.fcity}, {listing.fstate} - {listing.fpincode}</p>
-  <h3 className="font-semibold mt-4 mb-2">Bids:</h3>
-  {Array.isArray(listing.bids) && listing.bids.length > 0 ? (
-    listing.bids.map((bid, index) => (
-      <Card key={index} className="mb-2">
-        <CardContent className="p-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <p><strong>{bid.buyerName}</strong></p>
-              <p>Offered: ₹{bid.cropPrice} for {listing.quantity} units</p>
-            </div>
-            <Badge>{bid.status}</Badge>
-          </div>
-          {bid.status === 'pending' && (
-            <div className="flex justify-end mt-2 space-x-2">
-              <Button onClick={() => handleStatusChange(listing._id, index, 'rejected')} variant="destructive">Reject</Button>
-              <Button onClick={() => handleStatusChange(listing._id, index, 'negotiating')}>Negotiate</Button>
-              <Button onClick={() => handleStatusChange(listing._id, index, 'accepted')}>Accept</Button>
-            </div>
-          )}
-          {bid.status === 'negotiating' && (
-            <div className="mt-2">
-              <p className="mb-2">Buyer's phone: {bid.bmobile}</p>
-              <div className="flex justify-end space-x-2">
-                <Button onClick={() => handleStatusChange(listing._id, index, 'rejected')} variant="destructive">Reject</Button>
-                <Button onClick={() => handleStatusChange(listing._id, index, 'accepted')}>Accept</Button>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    ))
-  ) : (
-    <p>No bids available</p>
-  )}
-</CardContent>
-
+            <CardContent className="text-black">
+              <p>Cropping Time: {listing.croppingtime}</p>
+              <p>Harvesting Time: {listing.harvestingtime}</p>
+              <p>Location: {listing.fcity}, {listing.fstate} - {listing.fpincode}</p>
+              <h3 className="font-semibold mt-4 mb-2">Bids:</h3>
+              {Array.isArray(listing.bids) && listing.bids.length > 0 ? (
+                listing.bids.map((bid, index) => (
+                  <Card key={index} className="mb-2 bg-white text-black shadow-[0_4px_8px_rgba(0,0,0,0.1)]">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p><strong>{bid.buyerName}</strong></p>
+                          <p>Offered: ₹{bid.cropPrice} for {listing.quantity} units</p>
+                        </div>
+                        <Badge>{bid.status}</Badge>
+                      </div>
+                      {bid.status === 'pending' && (
+                        <div className="flex justify-end mt-2 space-x-2">
+                          <Button onClick={() => handleStatusChange(listing._id, index, 'rejected')} variant="outline" className="text-white border-black hover:bg-black hover:text-white shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Reject</Button>
+                          <Button onClick={() => handleStatusChange(listing._id, index, 'negotiating')} variant="outline" className="text-white border-black hover:bg-black hover:text-white shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Negotiate</Button>
+                          <Button onClick={() => handleStatusChange(listing._id, index, 'accepted')} variant="outline" className="text-white border-black hover:bg-black hover:text-white shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Accept</Button>
+                        </div>
+                      )}
+                      {bid.status === 'negotiating' && (
+                        <div className="mt-2">
+                          <p className="mb-2">Buyer's phone: {bid.bmobile}</p>
+                          <div className="flex justify-end space-x-2">
+                            <Button onClick={() => handleStatusChange(listing._id, index, 'rejected')} variant="outline" className="text-white border-black hover:bg-black hover:text-white shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Reject</Button>
+                            <Button onClick={() => handleStatusChange(listing._id, index, 'accepted')} variant="outline" className="text-white border-black hover:bg-black hover:text-white shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Accept</Button>
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <p>No bids available</p>
+              )}
+            </CardContent>
           </Card>
         ))
       )}
 
-      <Dialog open={showContractDialog} onOpenChange={setShowContractDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Contract</DialogTitle>
-            <DialogDescription>
-              Fill in the details for the contract with {selectedBid?.buyerName}.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleContractSubmit}>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="deliveryDate" className="text-right">
-                  Delivery Date
-                </Label>
-                <Input
-                  id="deliveryDate"
-                  type="date"
-                  className="col-span-3"
-                  value={contractDetails.deliveryDate}
-                  onChange={(e) => setContractDetails({...contractDetails, deliveryDate: e.target.value})}
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="paymentTerms" className="text-right">
-                  Payment Terms
-                </Label>
-                <Input
-                  id="paymentTerms"
-                  className="col-span-3"
-                  value={contractDetails.paymentTerms}
-                  onChange={(e) => setContractDetails({...contractDetails, paymentTerms: e.target.value})}
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="additionalNotes" className="text-right">
-                  Additional Notes
-                </Label>
-                <Textarea
-                  id="additionalNotes"
-                  className="col-span-3"
-                  value={contractDetails.additionalNotes}
-                  onChange={(e) => setContractDetails({...contractDetails, additionalNotes: e.target.value})}
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit">Send Contract</Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+<Dialog open={showContractDialog} onOpenChange={setShowContractDialog}>
+  <DialogContent className="bg-white text-black">
+    <div className="flex flex-col items-center justify-center text-center py-12">
+      <h2 className="text-2xl font-semibold">Contract Created</h2>
+      <p className="text-lg text-gray-700 mt-2">
+        The contract has been successfully created and is now available in the system.
+      </p>
+      <Button
+        onClick={() => setShowContractDialog(false)}
+        className="mt-6 text-white bg-black hover:bg-black shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
+      >
+        Close
+      </Button>
+    </div>
+  </DialogContent>
+</Dialog>
+
+
     </div>
   )
 }

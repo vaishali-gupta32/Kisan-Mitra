@@ -62,11 +62,11 @@ export default function Register() {
       <Header />
       <main className="flex-1 flex items-center justify-center relative">
         <div className="absolute inset-0 -z-10">
-          {/* <img
-            src="/farm-background.jpg"
+          <img
+            src="\resources\background1.jpeg"
             alt="Farm landscape"
             className="w-full h-full object-cover"
-          /> */}
+          />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
         </div>
         
@@ -98,13 +98,13 @@ export default function Register() {
                   name="fullName"
                   type="text"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Full Name"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm text-black font-medium">
+                <label htmlFor="email" className="text-sm text-black font-medium text-black">
                   Email
                 </label>
                 <input
@@ -112,7 +112,7 @@ export default function Register() {
                   name="email"
                   type="email"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Email"
                 />
               </div>
@@ -126,13 +126,13 @@ export default function Register() {
                   name="phone"
                   type="tel"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Phone"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="aadhar" className="text-sm text-black font-medium">
+                <label htmlFor="aadhar" className="text-sm text-black font-medium text-black">
                   Aadhar Number
                 </label>
                 <input
@@ -140,13 +140,13 @@ export default function Register() {
                   name="aadhar"
                   maxLength={12}
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Aadhar Number"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="role" className="text-sm text-black font-medium">
+                <label htmlFor="role" className="text-sm text-black font-medium text-black">
                   Role
                 </label>
                 <input
@@ -154,7 +154,7 @@ export default function Register() {
                   name="role"
                   type="text"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Role"
                 />
               </div>
@@ -169,20 +169,20 @@ export default function Register() {
                     name="city"
                     type="text"
                     required
-                    className="w-full p-3 rounded-md border bg-white/50"
+                    className="w-full p-3 rounded-md border bg-white/50 text-black"
                     placeholder="City"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="state" className="text-sm text-black font-medium">
+                  <label htmlFor="state" className="text-sm text-black font-medium text-black">
                     State
                   </label>
                   <select
                     id="state"
                     name="state"
                     required
-                    className="w-full p-3 rounded-md border bg-white/50"
+                    className="w-full p-3 rounded-md border bg-white/50 text-black"
                   >
                     <option value="">Select state</option>
                     {STATES.map((state) => (
@@ -195,7 +195,7 @@ export default function Register() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="pincode" className="text-sm text-black font-medium">
+                <label htmlFor="pincode" className="text-sm text-black font-medium text-black">
                   Pincode
                 </label>
                 <input
@@ -203,13 +203,13 @@ export default function Register() {
                   name="pincode"
                   type="text"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Pincode"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm text-black font-medium">
+                <label htmlFor="password" className="text-sm text-black font-medium text-black">
                   Password
                 </label>
                 <input
@@ -217,13 +217,13 @@ export default function Register() {
                   name="password"
                   type="password"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Password"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="text-sm text-black font-medium">
+                <label htmlFor="confirmPassword" className="text-sm text-black font-medium text-black">
                   Confirm Password
                 </label>
                 <input
@@ -231,35 +231,10 @@ export default function Register() {
                   name="confirmPassword"
                   type="password"
                   required
-                  className="w-full p-3 rounded-md border bg-white/50"
+                  className="w-full p-3 rounded-md border bg-white/50 text-black"
                   placeholder="Confirm Password"
                 />
-              </div>
-
-              {/* <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  Supporting Documents
-                </label>
-                <div className="border-2 border-dashed rounded-md p-4 text-center">
-                  <input
-                    type="file"
-                    id="documents"
-                    name="documents"
-                    className="hidden"
-                    multiple
-                  />
-                  <label
-                    htmlFor="documents"
-                    className="cursor-pointer flex flex-col items-center gap-2"
-                  >
-                    <Upload className="h-6 w-6" />
-                    <span className="text-sm text-muted-foreground">
-                      Upload Documents
-                    </span>
-                  </label>
-                </div>
-              </div> */}
-
+              </div>             
               <button
                 type="submit"
                 className="w-full bg-black text-white py-3 rounded-md hover:bg-black/90 transition-colors"

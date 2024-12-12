@@ -67,7 +67,7 @@ export default function Footer() {
     <footer className="relative bg-transparent text-white">
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/resources/footer.jpeg"
+          src="/resources/background5.jpeg"
           alt="Footer background"
           layout="fill"
           objectFit="cover"

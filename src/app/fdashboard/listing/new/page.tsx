@@ -1,186 +1,187 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Listing, Bid } from '@/app/fdashboard/listing/types'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { DashboardLayout } from '@/components/dashboard-layout'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-export default function FarmerDashboard() {
-  const [listings, setListings] = useState<Listing[]>([]) // List of crop listings
-  const [selectedBid, setSelectedBid] = useState<Bid | null>(null) // Selected bid for creating a contract
-  const [showContractDialog, setShowContractDialog] = useState(false) // For showing contract dialog
-  const [contractDetails, setContractDetails] = useState({ deliveryDate: '', paymentTerms: '', additionalNotes: '' }) // Contract details
-  const [loading, setLoading] = useState(true) // Track loading state
-  const [error, setError] = useState<string | null>(null) // Track errors from API
+export default function NewListingPage() {
+  const router = useRouter()
+  const [listing, setListing] = useState({
+    croptype: '',
+    quantity: '',
+    harvestingtime: '',
+    price: '',
+    fcity: '',
+    fpincode: '',
+    fstate: '',
+    email: '',  // Added email field
+  })
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      const email = localStorage.getItem('email') // Get email from localStorage
-      if (email) {
-        try {
-          setLoading(true)
-          const response = await fetch(`http://localhost:8001/a/${email}`) // Replace with actual API endpoint
-          if (!response.ok) {
-            throw new Error('Failed to fetch listings')
-          }
-          const data = await response.json()
-          if (Array.isArray(data)) {
-            setListings(data)
-          } else {
-            setError('Error: Data is not in the expected format')
-          }
-        } catch (error: any) {
-          setError(error.message || 'An unexpected error occurred')
-        } finally {
-          setLoading(false)
-        }
-      } else {
-        setLoading(false)
-      }
-    }
-    
-    fetchListings()
-  }, [])
-
-  const handleStatusChange = (listingId: string, bidIndex: number, newStatus: Bid['status']) => {
-    setListings(currentListings =>
-      currentListings.map(listing =>
-        listing._id === listingId
-          ? {
-              ...listing,
-              bids: listing.bids.map((bid, index) =>
-                index === bidIndex ? { ...bid, status: newStatus } : bid
-              )
-            }
-          : listing
-      )
-    )
-
-    if (newStatus === 'accepted') {
-      const listing = listings.find(l => l._id === listingId)
-      const bid = listing?.bids[bidIndex]
-      if (bid) {
-        setSelectedBid(bid)
-        setShowContractDialog(true)
-      }
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setListing({ ...listing, [e.target.name]: e.target.value })
   }
 
-  const handleContractSubmit = (e: React.FormEvent) => {
+  const handleSelectChange = (name: string, value: string) => {
+    setListing({ ...listing, [name]: value })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically send the contract details to the backend
-    console.log('Contract details:', { ...contractDetails, bid: selectedBid })
-    setShowContractDialog(false)
-    // Reset contract details
-    setContractDetails({ deliveryDate: '', paymentTerms: '', additionalNotes: '' })
+
+    // Basic email validation (you can improve this)
+    if (!listing.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      console.error('Invalid email address')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/listing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(listing),
+      })
+
+      if (response.ok) {
+        // Redirect to the Farmer Dashboard after successful submission
+        router.push('/fdashboard')
+      } else {
+        console.error('Failed to submit listing')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    }
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Farmer's Dashboard</h1>
-
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        listings.map(listing => (
-          <Card key={listing._id} className="mb-6">
-            <CardHeader>
-              <CardTitle>{listing.croptype}</CardTitle>
-              <CardDescription>
-                Quantity: {listing.quantity} | Price: ₹{listing.price}/unit
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Cropping Time: {listing.croppingtime}</p>
-              <p>Harvesting Time: {listing.harvestingtime}</p>
-              <p>Location: {listing.fcity}, {listing.fstate} - {listing.fpincode}</p>
-              <h3 className="font-semibold mt-4 mb-2">Bids:</h3>
-              {listing.bids.map((bid, index) => (
-                <Card key={index} className="mb-2">
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p><strong>{bid.buyerName}</strong></p>
-                        <p>Offered: ₹{bid.cropPrice} for {listing.quantity} units</p>
-                      </div>
-                      <Badge>{bid.status}</Badge>
-                    </div>
-                    {bid.status === 'pending' && (
-                      <div className="flex justify-end mt-2 space-x-2">
-                        <Button onClick={() => handleStatusChange(listing._id, index, 'rejected')} variant="destructive">Reject</Button>
-                        <Button onClick={() => handleStatusChange(listing._id, index, 'negotiating')}>Negotiate</Button>
-                        <Button onClick={() => handleStatusChange(listing._id, index, 'accepted')}>Accept</Button>
-                      </div>
-                    )}
-                    {bid.status === 'negotiating' && (
-                      <div className="mt-2">
-                        <p className="mb-2">Buyer's phone: {bid.bmobile}</p>
-                        <div className="flex justify-end space-x-2">
-                          <Button onClick={() => handleStatusChange(listing._id, index, 'rejected')} variant="destructive">Reject</Button>
-                          <Button onClick={() => handleStatusChange(listing._id, index, 'accepted')}>Accept</Button>
-                        </div>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </CardContent>
-          </Card>
-        ))
-      )}
-
-      <Dialog open={showContractDialog} onOpenChange={setShowContractDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Contract</DialogTitle>
-            <DialogDescription>
-              Fill in the details for the contract with {selectedBid?.buyerName}.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleContractSubmit}>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="deliveryDate" className="text-right">Delivery Date</Label>
-                <Input
-                  id="deliveryDate"
-                  type="date"
-                  className="col-span-3"
-                  value={contractDetails.deliveryDate}
-                  onChange={(e) => setContractDetails({...contractDetails, deliveryDate: e.target.value})}
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="paymentTerms" className="text-right">Payment Terms</Label>
-                <Input
-                  id="paymentTerms"
-                  className="col-span-3"
-                  value={contractDetails.paymentTerms}
-                  onChange={(e) => setContractDetails({...contractDetails, paymentTerms: e.target.value})}
-                />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="additionalNotes" className="text-right">Additional Notes</Label>
-                <Textarea
-                  id="additionalNotes"
-                  className="col-span-3"
-                  value={contractDetails.additionalNotes}
-                  onChange={(e) => setContractDetails({...contractDetails, additionalNotes: e.target.value})}
-                />
-              </div>
+    <DashboardLayout>
+      {/* Background set to white-screen_32.jpeg */}
+      <div 
+        className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url("/resources/white-screen_32.jpeg")',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1
+        }}
+      />
+      <Card className="bg-white p-6">
+        <CardHeader>
+          <CardTitle className="text-black">Add New Listing</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="croptype" className="text-black">Crop Type</label>
+              <Input
+                id="croptype"
+                name="croptype"
+                value={listing.croptype}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
             </div>
-            <DialogFooter>
-              <Button type="submit">Send Contract</Button>
-            </DialogFooter>
+            <div>
+              <label htmlFor="quantity" className="text-black">Quantity (in kgs)</label>
+              <Input
+                id="quantity"
+                name="quantity"
+                value={listing.quantity}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
+            </div>
+            <div>
+              <label htmlFor="harvestingtime" className="text-black">Delivery Time</label>
+              <Select onValueChange={(value: string) => handleSelectChange('harvestingtime', value)}>
+                <SelectTrigger className="bg-white text-black">
+                  <SelectValue placeholder="Select Delivery Month" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-200">
+                  <SelectItem value="January" className="text-black">January</SelectItem>
+                  <SelectItem value="February" className="text-black">February</SelectItem>
+                  <SelectItem value="March" className="text-black">March</SelectItem>
+                  <SelectItem value="April" className="text-black">April</SelectItem>
+                  <SelectItem value="May" className="text-black">May</SelectItem>
+                  <SelectItem value="June" className="text-black">June</SelectItem>
+                  <SelectItem value="July" className="text-black">July</SelectItem>
+                  <SelectItem value="August" className="text-black">August</SelectItem>
+                  <SelectItem value="September" className="text-black">September</SelectItem>
+                  <SelectItem value="October" className="text-black">October</SelectItem>
+                  <SelectItem value="November" className="text-black">November</SelectItem>
+                  <SelectItem value="December" className="text-black">December</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label htmlFor="price" className="text-black">Price (in ₹)</label>
+              <Input
+                id="price"
+                name="price"
+                type="number"
+                value={listing.price}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
+            </div>
+            <div>
+              <label htmlFor="fcity" className="text-black">City</label>
+              <Input
+                id="fcity"
+                name="fcity"
+                value={listing.fcity}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
+            </div>
+            <div>
+              <label htmlFor="fpincode" className="text-black">Pincode</label>
+              <Input
+                id="fpincode"
+                name="fpincode"
+                value={listing.fpincode}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
+            </div>
+            <div>
+              <label htmlFor="fstate" className="text-black">State</label>
+              <Input
+                id="fstate"
+                name="fstate"
+                value={listing.fstate}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="text-black">Email</label> {/* New email input field */}
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={listing.email}
+                onChange={handleChange}
+                required
+                className="bg-white text-black"
+              />
+            </div>
+            <Button type="submit" className="bg-black text-white">Create Listing</Button>
           </form>
-        </DialogContent>
-      </Dialog>
-    </div>
+        </CardContent>
+      </Card>
+    </DashboardLayout>
   )
 }

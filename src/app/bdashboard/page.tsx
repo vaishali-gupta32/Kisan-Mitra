@@ -41,9 +41,7 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="mt-8">
-          <MarketTrends />
-        </div>
+        
       </div>
     </div>
   )

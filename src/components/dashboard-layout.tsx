@@ -75,16 +75,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
           <div className="flex flex-1 flex-col">
             <header className="flex h-16 items-center justify-between border-b px-4">
               <SidebarTrigger className="md:hidden" />
-              <div className="flex items-center space-x-4">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                >
-                  {theme === 'light' ? <MoonIcon /> : <SunIcon />}
-                </Button>
-                <Button>Logout</Button>
-              </div>
+              
             </header>
             <main className="flex-1 overflow-auto p-4 bg-background/80 backdrop-blur-sm">
               <div className="mx-auto max-w-4xl">{children}</div>
